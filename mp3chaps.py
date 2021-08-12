@@ -21,7 +21,12 @@ def list_chaps(tag):
   "list chapters in tag"
   print("Chapters:")
   for chap in tag.chapters:
-    print(chap.sub_frames.get(b"TIT2")[0]._text)
+    chap_start_time = chap.times[0]
+    print("%02d:%02d:%06.03f %s" % (
+      chap_start_time / 1000 / 60 / 60,
+      (chap_start_time / 1000 / 60) % 60,
+      (chap_start_time / 1000) % 60,
+      chap.sub_frames.get(b"TIT2")[0]._text))
 
 def remove_chaps(tag):
   "remove all the chapters and save tag to file"
